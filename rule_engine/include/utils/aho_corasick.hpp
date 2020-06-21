@@ -3,23 +3,29 @@
 #include <folly/small_vector.h>
 
 namespace utils{
-    template <int K>
+    
     class TrieVertex final {
         public: 
-            folly::small_vector<int, 10> next(K, -1);
+            folly::small_vector<int, 10> next;
             bool leaf = false;
             int p = -1;
             char pch;
             int link = -1;
-            folly::small_vector<int, 10> go(K, -1);
+            folly::small_vector<int, 10> go;
 
-            TrieVertex(int p=-1, char ch='$') : p(p), pch(ch) {}
+            TrieVertex(int K, int p=-1, char ch='$') : p(p), pch(ch) {
+                next.resize(K);
+                std::fill(next.begin(), next.end(), -1);
+
+                go.resize(K);
+                std::fill(go.begin(), go.end(), -1);
+            }
     };
 
-    template <int K>
+    
     class Trie final{
         private:
-            folly::small_vector<TrieVertex<K>, 10> trie; // TODO: convert TrieVector to ptr instead
+            folly::small_vector<TrieVertex, 10> trie; // TODO: convert TrieVector to ptr instead
             int go(int v, char ch);
 
         public:
@@ -27,8 +33,8 @@ namespace utils{
             int get_link(int v);
     };
 
-    template <int K>
-    void Trie<K>::add_string(std::string const& s) {
+    
+    void Trie::add_string(std::string const& s) {
         int v = 0;
         for (const char & ch : s) {
             int c = ch - 'a';
@@ -41,19 +47,19 @@ namespace utils{
         trie[v].leaf = true;
     }
 
-    template <int K>
-    int Trie<K>::get_link(int v) {
-        if (t[v].link == -1) {
-            if (v == 0 || t[v].p == 0)
-                t[v].link = 0;
+    
+    int Trie::get_link(int v) {
+        if (trie[v].link == -1) {
+            if (v == 0 || trie[v].p == 0)
+                trie[v].link = 0;
             else
-                t[v].link = go(get_link(t[v].p), t[v].pch);
+                trie[v].link = go(get_link(trie[v].p), trie[v].pch);
         }
-        return t[v].link;
+        return trie[v].link;
     }
 
-    template <int K>
-    int Trie<K>::go(int v, char ch) {
+    
+    int Trie::go(int v, char ch) {
         int c = ch - 'a';
         if (trie[v].go[c] == -1) {
             if (trie[v].next[c] != -1)

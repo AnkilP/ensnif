@@ -8,14 +8,15 @@ class BaseRuleEngine : public IRuleEngine<ruleList, packet> {
     protected:
         folly::small_vector<ruleList, 10> ruleContainer;
         std::string label;
-
-    public:
+        bool cancellation_token; // TODO: converted to sync 
 
         BaseRuleEngine(const std::string & name);
 
-        void setRules(const IIngestor<ruleList> &) override {};
+    public:
 
-        virtual void runRules(const IIngestor<packet> &) = 0;
+        void setRules(const IIngestor<ruleList> & ruleIngestor) override;
+
+        void runRules(const IIngestor<packet> &) override;
 
 };
 
@@ -28,6 +29,13 @@ template <typename ruleList, typename packet>
 void BaseRuleEngine<ruleList, packet>::setRules(const IIngestor<ruleList> & ruleIngestor) {
     while(!ruleIngestor.isEmpty()){
         // we expect this to terminate as rule assignment should normally be done 
-        ruleContainer<ruleList, 10>.emplace_back(ruleIngestor.getElement());
+        ruleContainer.emplace_back(ruleIngestor.getElement());
+    }
+}
+
+template <typename ruleList, typename packet>
+void BaseRuleEngine<ruleList, packet>::runRules(const IIngestor<packet> & packetIngestor) { // TODO: 
+    while(!packetIngestor.isEmpty() && cancellation_token == false){
+        auto p = packetIngestor.getElement();
     }
 }

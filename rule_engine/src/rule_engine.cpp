@@ -8,8 +8,8 @@
 *  
 */
 
-#include "include/BaseRuleEngine.hpp"
-#include "include/utils/aho_corasick.hpp"
+#include "BaseRuleEngine.hpp"
+#include "utils/aho_corasick.hpp"
 // #include "include/synchronization.hpp" // when we get to it
 
 template <typename ruleList, typename packet>
@@ -17,22 +17,22 @@ class AhoCorasick final : public BaseRuleEngine<ruleList, packet> {
 
     private:
         packet p;
-        bool cancellation_token; // TODO: converted to sync 
-        utils::Trie<26> rule_trie;
+        utils::Trie rule_trie;
 
         bool construct_automaton();
 
     public:
         AhoCorasick(const IIngestor<ruleList> & ruleIngestor);    
 
-        void runRules(const IIngestor<packet> &) override final {}
+        void runRules(const IIngestor<packet> &) override final;
 };
 
 template <typename ruleList, typename packet>
-AhoCorasick<ruleList, packet>::AhoCorasick(const IIngestor<ruleList> & ruleIngestor) : BaseRuleEngine<ruleList>("Aho-Corasick") {
+AhoCorasick<ruleList, packet>::AhoCorasick(const IIngestor<ruleList> & ruleIngestor) : BaseRuleEngine<ruleList, packet>("Aho-Corasick") {
+    rule_trie = utils::Trie(26);
     this->setRules(ruleIngestor); // TODO: plan is to make this a service in the grpc sense
     construct_automaton();
-    cancellation_token = false;
+    this->cancellation_token = false;
 }
 
 template <typename ruleList, typename packet>
@@ -42,12 +42,12 @@ bool AhoCorasick<ruleList, packet>::construct_automaton(){
             rule_trie.add_string(rule);
         }
     }
-    
+    return false;
 }
 
 template <typename ruleList, typename packet>
 void AhoCorasick<ruleList, packet>::runRules(const IIngestor<packet> & packetIngestor){
-    while(!packetIngestor.isEmpty() && cancellation_token == false){
+    while(!packetIngestor.isEmpty() && this->cancellation_token == false){
         p = packetIngestor.getElement();
 
     }
