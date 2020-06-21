@@ -11,6 +11,12 @@ add_subdirectory(rule_engine)
 add_subdirectory(conversion)
 add_subdirectory(ingestion)
 
+add_executable(${PROJECT_NAME} main.cpp)
+
+target_link_libraries(${PROJECT_NAME}
+    rule_parser
+)
+
 #tls pcap demo
 #add_executable(tls_pcap ingestion/tls_pcap.cpp conversion/tls_pcap.cpp rule_engine/tls_pcap.cpp ${LIBRARY_SOURCES})
 #target_link_libraries(tls_pcap seal)

@@ -1,5 +1,6 @@
 #include "IIngestor.hpp"
 #include "folly/ProducerConsumerQueue.h"
+#include <iostream>
 
 template <typename T>
 class BaseIngestor : public IIngestor<T> {
@@ -9,11 +10,16 @@ class BaseIngestor : public IIngestor<T> {
         T temp_variable;
 
     public:
-        void setElement(const T & elem) override {};
-
-        T getElement() override {};
+        void setElement(const T & elem) override;
+        bool isEmpty() const override;
+        T getElement() override;
 
 };
+
+template <typename T>
+bool BaseIngestor<T>::isEmpty() const {
+    return IngestionQueue.isEmpty();
+}
 
 template <typename T>
 void BaseIngestor<T>::setElement(const T & elem) {
