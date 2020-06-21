@@ -1,3 +1,5 @@
+#ifndef IINGESTOR_H
+#define IINGESTOR_H
 
 template <typename T>
 class IIngestor {
@@ -6,3 +8,5 @@ class IIngestor {
         virtual T getElement() = 0;
         virtual bool isEmpty() = 0;
 };
+
+#endif

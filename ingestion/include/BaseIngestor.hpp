@@ -1,3 +1,6 @@
+#ifndef BASEINGESTOR_H
+#define BASEINGESTOR_H
+
 #include "IIngestor.hpp"
 #include "folly/ProducerConsumerQueue.h"
 #include <iostream>
@@ -40,3 +43,5 @@ T BaseIngestor<T>::getElement() {
         return temp_variable;
     }
 }
+
+#endif
