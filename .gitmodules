@@ -1,3 +1,6 @@
 [submodule "folly"]
 	path = folly
 	url = git@github.com:AnkilP/folly.git
+[submodule "SEAL"]
+	path = SEAL
+	url = git@github.com:AnkilP/SEAL.git
