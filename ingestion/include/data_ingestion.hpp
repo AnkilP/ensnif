@@ -1,5 +1,6 @@
 #include "BaseIngestor.hpp"
 #include <string>
+#include <iostream>
 
 template <typename T>
 class Data_Ingestor final : public BaseIngestor<T> {
@@ -13,4 +14,6 @@ class Data_Ingestor final : public BaseIngestor<T> {
         }
 
         ~Data_Ingestor() {};
+
+        void getLabel();
 };

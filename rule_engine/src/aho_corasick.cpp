@@ -4,7 +4,7 @@ template <typename ruleList, typename packet>
 AhoCorasick<ruleList, packet>::AhoCorasick(IIngestor<ruleList> & ruleIngestor) : BaseRuleEngine<ruleList, packet>("Aho-Corasick") {
     rule_trie = utils::Trie(26);
     this->setRules(ruleIngestor); // TODO: plan is to make this a service in the grpc sense
-    construct_automaton();
+    // construct_automaton();
     this->cancellation_token = false;
 }
 
