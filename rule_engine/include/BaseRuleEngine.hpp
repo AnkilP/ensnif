@@ -1,3 +1,6 @@
+#ifndef BASERULEENGINE_H
+#define BASERULEENGINE_H
+
 #include "IRuleEngine.hpp"
 #include <folly/small_vector.h>
 #include <string>
@@ -14,19 +17,22 @@ class BaseRuleEngine : public IRuleEngine<ruleList, packet> {
 
     public:
 
-        void setRules(const IIngestor<ruleList> & ruleIngestor) override;
+        void setRules(IIngestor<ruleList> & ruleIngestor) override;
 
         void runRules(const IIngestor<packet> &) override;
+
+        virtual ~BaseRuleEngine();
 
 };
 
 template <typename ruleList, typename packet>
 BaseRuleEngine<ruleList, packet>::BaseRuleEngine(const std::string & name){
     label = name;
+    ruleContainer.reserve(2048);
 }
 
 template <typename ruleList, typename packet>
-void BaseRuleEngine<ruleList, packet>::setRules(const IIngestor<ruleList> & ruleIngestor) {
+void BaseRuleEngine<ruleList, packet>::setRules(IIngestor<ruleList> & ruleIngestor) {
     while(!ruleIngestor.isEmpty()){
         // we expect this to terminate as rule assignment should normally be done 
         ruleContainer.emplace_back(ruleIngestor.getElement());
@@ -36,6 +42,9 @@ void BaseRuleEngine<ruleList, packet>::setRules(const IIngestor<ruleList> & rule
 template <typename ruleList, typename packet>
 void BaseRuleEngine<ruleList, packet>::runRules(const IIngestor<packet> & packetIngestor) { // TODO: 
     while(!packetIngestor.isEmpty() && cancellation_token == false){
-        auto p = packetIngestor.getElement();
+        // auto p = packetIngestor.getElement();
+        cancellation_token = true;
     }
 }
+
+#endif

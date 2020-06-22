@@ -11,11 +11,16 @@ class BaseIngestor : public IIngestor<T> {
     protected:
         folly::ProducerConsumerQueue<T> IngestionQueue;
         T temp_variable;
+        std::string _label;
+
+        BaseIngestor(const std::string & label): IngestionQueue(2048), _label(label) {}
 
     public:
         void setElement(const T & elem) override;
         bool isEmpty() const override;
         T getElement() override;
+
+        virtual ~BaseIngestor();
 
 };
 
@@ -36,12 +41,13 @@ void BaseIngestor<T>::setElement(const T & elem) {
 template <typename T>
 T BaseIngestor<T>::getElement() {
     if(!IngestionQueue.read(temp_variable)){
+        std::cout << "not able to read" << std::endl;
         //TODO: log not able to read
-        // fatal
     }
     else{
         return temp_variable;
     }
+    return temp_variable;
 }
 
 #endif

@@ -7,6 +7,9 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(SEAL/SEAL) 
 link_directories(SEAL/bin)
 
+include_directories(folly/folly)
+link_directories(folly/_build)
+
 add_subdirectory(rule_engine)
 add_subdirectory(conversion)
 add_subdirectory(ingestion)
@@ -15,6 +18,7 @@ add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(${PROJECT_NAME}
     rule_parser
+    ingestion_lib
 )
 
 #tls pcap demo

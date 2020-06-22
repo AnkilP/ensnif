@@ -25,4 +25,6 @@ class AhoCorasick final : public BaseRuleEngine<ruleList, packet> {
         AhoCorasick(const IIngestor<ruleList> & ruleIngestor);    
 
         void runRules(const IIngestor<packet> &) override final;
+
+        ~AhoCorasick();
 };
