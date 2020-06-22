@@ -20,7 +20,7 @@ class BaseIngestor : public IIngestor<T> {
         bool isEmpty() const override;
         T getElement() override;
 
-        virtual ~BaseIngestor();
+        virtual ~BaseIngestor() {};
 
 };
 

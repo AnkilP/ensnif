@@ -25,8 +25,3 @@ void AhoCorasick<ruleList, packet>::runRules(IIngestor<packet> & packetIngestor)
 
     }
 }
-
-template <typename ruleList, typename packet>
-AhoCorasick<ruleList, packet>::~AhoCorasick() {
-    
-}

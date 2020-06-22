@@ -21,7 +21,7 @@ class BaseRuleEngine : public IRuleEngine<ruleList, packet> {
 
         void runRules(IIngestor<packet> & packetIngestor) override;
 
-        virtual ~BaseRuleEngine();
+        virtual ~BaseRuleEngine() {};
 
 };
 

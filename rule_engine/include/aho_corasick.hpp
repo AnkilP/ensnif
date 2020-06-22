@@ -24,7 +24,7 @@ class AhoCorasick final : public BaseRuleEngine<ruleList, packet> {
     public:
         AhoCorasick(IIngestor<ruleList> & ruleIngestor);    
 
-        void runRules(IIngestor<packet> & packetIngestor) override final;
+        void runRules(IIngestor<packet> & packetIngestor);
 
-        virtual ~AhoCorasick();
+        virtual ~AhoCorasick() {};
 };
