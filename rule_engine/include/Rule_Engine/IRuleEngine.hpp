@@ -1,7 +1,7 @@
 #ifndef IRULEENGINE_H
 #define IRULEENGINE_H
 
-#include "IIngestor.hpp"
+#include "Ingestion/IIngestor.hpp"
 
 template <typename ruleList, typename packet>
 class IRuleEngine{
