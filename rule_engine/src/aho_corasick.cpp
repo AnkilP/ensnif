@@ -1,7 +1,7 @@
 #include "aho_corasick.hpp"
 
 template <typename ruleList, typename packet>
-AhoCorasick<ruleList, packet>::AhoCorasick(const IIngestor<ruleList> & ruleIngestor) : BaseRuleEngine<ruleList, packet>("Aho-Corasick") {
+AhoCorasick<ruleList, packet>::AhoCorasick(IIngestor<ruleList> & ruleIngestor) : BaseRuleEngine<ruleList, packet>("Aho-Corasick") {
     rule_trie = utils::Trie(26);
     this->setRules(ruleIngestor); // TODO: plan is to make this a service in the grpc sense
     construct_automaton();
@@ -19,7 +19,7 @@ bool AhoCorasick<ruleList, packet>::construct_automaton(){
 }
 
 template <typename ruleList, typename packet>
-void AhoCorasick<ruleList, packet>::runRules(const IIngestor<packet> & packetIngestor){
+void AhoCorasick<ruleList, packet>::runRules(IIngestor<packet> & packetIngestor){
     while(!packetIngestor.isEmpty() && this->cancellation_token == false){
         p = packetIngestor.getElement();
 
@@ -27,6 +27,6 @@ void AhoCorasick<ruleList, packet>::runRules(const IIngestor<packet> & packetIng
 }
 
 template <typename ruleList, typename packet>
-AhoCorasick<ruleList, packet>::~AhoCorasick(){
+AhoCorasick<ruleList, packet>::~AhoCorasick() {
     
 }

@@ -1,5 +1,8 @@
 // Modified https://cp-algorithms.com/string/aho_corasick.html
 
+#ifndef TRIE_H
+#define TRIE_H
+
 #include <folly/small_vector.h>
 
 namespace utils{
@@ -72,3 +75,4 @@ namespace utils{
 
 }
 
+#endif

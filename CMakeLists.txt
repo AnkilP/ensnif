@@ -4,12 +4,8 @@ project(ensnif)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(SEAL/SEAL) 
-link_directories(SEAL/bin)
-
-include_directories(folly/folly)
-link_directories(folly/_build)
-
+add_subdirectory(SEAL)
+add_subdirectory(folly)
 add_subdirectory(rule_engine)
 add_subdirectory(conversion)
 add_subdirectory(ingestion)

@@ -19,7 +19,7 @@ class BaseRuleEngine : public IRuleEngine<ruleList, packet> {
 
         void setRules(IIngestor<ruleList> & ruleIngestor) override;
 
-        void runRules(const IIngestor<packet> &) override;
+        void runRules(IIngestor<packet> & packetIngestor) override;
 
         virtual ~BaseRuleEngine();
 
@@ -40,7 +40,7 @@ void BaseRuleEngine<ruleList, packet>::setRules(IIngestor<ruleList> & ruleIngest
 }
 
 template <typename ruleList, typename packet>
-void BaseRuleEngine<ruleList, packet>::runRules(const IIngestor<packet> & packetIngestor) { // TODO: 
+void BaseRuleEngine<ruleList, packet>::runRules(IIngestor<packet> & packetIngestor) { // TODO: 
     while(!packetIngestor.isEmpty() && cancellation_token == false){
         // auto p = packetIngestor.getElement();
         cancellation_token = true;

@@ -12,5 +12,5 @@ class Data_Ingestor final : public BaseIngestor<T> {
             x = "hello";
         }
 
-        ~Data_Ingestor();
+        virtual ~Data_Ingestor();
 };

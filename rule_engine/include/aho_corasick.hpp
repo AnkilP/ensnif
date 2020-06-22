@@ -9,7 +9,7 @@
 */
 
 #include "BaseRuleEngine.hpp"
-#include "utils/aho_corasick.hpp"
+#include "utils/trie.hpp"
 // #include "include/synchronization.hpp" // when we get to it
 
 template <typename ruleList, typename packet>
@@ -22,9 +22,9 @@ class AhoCorasick final : public BaseRuleEngine<ruleList, packet> {
         bool construct_automaton();
 
     public:
-        AhoCorasick(const IIngestor<ruleList> & ruleIngestor);    
+        AhoCorasick(IIngestor<ruleList> & ruleIngestor);    
 
-        void runRules(const IIngestor<packet> &) override final;
+        void runRules(IIngestor<packet> & packetIngestor) override final;
 
-        ~AhoCorasick();
+        virtual ~AhoCorasick();
 };
