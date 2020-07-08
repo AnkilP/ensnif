@@ -40,6 +40,7 @@ bool AhoCorasick<ruleList, packet>::construct_automaton(){
             rule_trie.add_string(rule);
         }
     }
+    
     return false;
 }
 

@@ -61,9 +61,8 @@ set(CMAKE_CXX_FLAGS_UBSAN
 
 add_subdirectory(SEAL)
 add_subdirectory(folly)
-add_subdirectory(rule_engine)
-add_subdirectory(conversion)
 add_subdirectory(ingestion)
+add_subdirectory(rule_engine)
 
 #main program
 add_subdirectory(demo)

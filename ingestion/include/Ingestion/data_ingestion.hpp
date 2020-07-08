@@ -18,6 +18,7 @@ class Data_Ingestor final : public BaseIngestor<T> {
         void getLabel();
 };
 
+
 template <typename T>
 void Data_Ingestor<T>::getLabel(){
     std::cout << this->_label << std::endl;
